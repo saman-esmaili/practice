@@ -1,5 +1,5 @@
 import tkinter as tk
-
+import random
 class SortApp(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -45,7 +45,7 @@ class SortApp(tk.Tk):
 
         listBoxFrame = tk.Frame(self,background="#66F2F7")
         listBoxFrame.pack(side=tk.LEFT, fill=tk.BOTH)
-        self.listbox = tk.Listbox(listBoxFrame,height=12)
+        self.listbox = tk.Listbox(listBoxFrame,height=12,justify=tk.CENTER)
         self.listbox.grid(row=0, column=1, padx=3, pady=3, ipadx=3, ipady=3)
 
         scrollbar = tk.Scrollbar(listBoxFrame,orient=tk.VERTICAL, command=self.listbox.yview)
@@ -65,7 +65,7 @@ class SortApp(tk.Tk):
 
         listBoxFrame2 = tk.Frame(self,background="#66F2F7")
         listBoxFrame2.pack(side=tk.RIGHT, fill=tk.BOTH)
-        self.converted_list = tk.Listbox(listBoxFrame2, height=12)
+        self.converted_list = tk.Listbox(listBoxFrame2, height=12,justify=tk.CENTER)
         self.converted_list.grid(row=0, column=0, padx=3, pady=3, ipadx=3, ipady=3)
 
         scrollbar2 = tk.Scrollbar(listBoxFrame2, orient=tk.VERTICAL, command=self.converted_list.yview)
@@ -76,9 +76,43 @@ class SortApp(tk.Tk):
         listBoxFrame2.grid_columnconfigure(1,weight=1)
 
     def generate(self):
-        pass
+        self.list1 = []
+        for i in range(self.count.get()):
+            randomNumber = random.randint(self.fromEntry.get(),self.toEntry.get())
+            self.list1.append(randomNumber)
+            self.listbox.insert(i,randomNumber)
+
     def bubble_sort(self):
-        pass
+        saver = 0
+        if self.list1 == sorted(self.list1):
+            for i in range(len(self.list1)):
+                self.converted_list.insert(i,self.list1[i])
+        else:
+            while self.list1 != sorted(self.list1):
+                even = 0
+                odd = 1
+                for index in range(len(self.list1)-1):
+                    if index == 0:
+                        if self.list1[even] > self.list1[odd]:
+                            saver = self.list1[even]
+                            self.list1[even] = self.list1[odd]
+                            self.list1[odd] = saver
+                    else:
+                        if index % 2 == 1:
+                            even += 2
+                            if self.list1[odd] > self.list1[even]:
+                                saver = self.list1[even]
+                                self.list1[even] = self.list1[odd]
+                                self.list1[odd] = saver
+                        elif index % 2 == 0:
+                            odd += 2
+                            if self.list1[even] > self.list1[odd]:
+                                saver = self.list1[even]
+                                self.list1[even] = self.list1[odd]
+                                self.list1[odd] = saver
+        for i in range(len(self.list1)):
+            self.converted_list.insert(i,self.list1[i])
+
     def insertion_sort(self):
         pass
 
