@@ -45,12 +45,12 @@ class SortApp(tk.Tk):
 
         listBoxFrame = tk.Frame(self,background="#66F2F7")
         listBoxFrame.pack(side=tk.LEFT, fill=tk.BOTH)
-        listbox = tk.Listbox(listBoxFrame,height=12)
-        listbox.grid(row=0, column=1, padx=3, pady=3, ipadx=3, ipady=3)
+        self.listbox = tk.Listbox(listBoxFrame,height=12)
+        self.listbox.grid(row=0, column=1, padx=3, pady=3, ipadx=3, ipady=3)
 
-        scrollbar = tk.Scrollbar(listBoxFrame,orient=tk.VERTICAL, command=listbox.yview)
+        scrollbar = tk.Scrollbar(listBoxFrame,orient=tk.VERTICAL, command=self.listbox.yview)
         scrollbar.grid(row=0, column=0, padx=3, pady=3, ipadx=3, ipady=3)
-        listbox.config(yscrollcommand=scrollbar.set)
+        self.listbox.config(yscrollcommand=scrollbar.set)
         listBoxFrame.grid_columnconfigure(0,weight=1)
         listBoxFrame.grid_columnconfigure(1,weight=1)
         listBoxFrame.grid_rowconfigure(0,weight=1)
@@ -65,12 +65,12 @@ class SortApp(tk.Tk):
 
         listBoxFrame2 = tk.Frame(self,background="#66F2F7")
         listBoxFrame2.pack(side=tk.RIGHT, fill=tk.BOTH)
-        listbox2 = tk.Listbox(listBoxFrame2, height=12)
-        listbox2.grid(row=0, column=0, padx=3, pady=3, ipadx=3, ipady=3)
+        self.converted_list = tk.Listbox(listBoxFrame2, height=12)
+        self.converted_list.grid(row=0, column=0, padx=3, pady=3, ipadx=3, ipady=3)
 
-        scrollbar2 = tk.Scrollbar(listBoxFrame2, orient=tk.VERTICAL, command=listbox2.yview)
+        scrollbar2 = tk.Scrollbar(listBoxFrame2, orient=tk.VERTICAL, command=self.converted_list.yview)
         scrollbar2.grid(row=0, column=1, padx=3, pady=3, ipadx=3, ipady=3)
-        listbox2.config(yscrollcommand=scrollbar2.set)
+        self.converted_list.config(yscrollcommand=scrollbar2.set)
         listBoxFrame2.grid_rowconfigure(0,weight=1)
         listBoxFrame2.grid_columnconfigure(0,weight=1)
         listBoxFrame2.grid_columnconfigure(1,weight=1)
