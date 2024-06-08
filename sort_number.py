@@ -114,8 +114,15 @@ class SortApp(tk.Tk):
             self.converted_list.insert(i,self.list1[i])
 
     def insertion_sort(self):
-        pass
-
+        list2 = [2,3,4,9,8,1]
+        saver = 0
+        for i in range(len(list2)):
+            minimum = min(list2[i:len(list2)])
+            index = list2.index(minimum)
+            saver = list2[i]
+            list2[i] = minimum
+            list2[index] = saver
+        print(list2)
 if __name__ == "__main__":
     app = SortApp()
     app.mainloop()
