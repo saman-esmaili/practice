@@ -8,6 +8,8 @@ class Order(tk.Tk):
         self.configure(background="#8CFFEC")
         self.center(self)
         self.controller()
+        self.labels = []
+        self.rowFrame = None
 
     def center(self,win):
         win.update_idletasks()
@@ -31,33 +33,48 @@ class Order(tk.Tk):
         tk.Button(topFrame,text="Run",command=self.make_order,background="#BAECE4").grid(row=0,column=2,padx=3,pady=3,ipadx=3,ipady=3)
         tk.Button(topFrame,text="order",command=self.make_order2,background="#BAECE4").grid(row=0,column=3,padx=3,pady=3,ipadx=3,ipady=3)
 
+    def clean(self):
+        if self.rowFrame:
+            self.rowFrame.destroy()
+            self.rowFrame = None
+            self.labels.clear()
+
     def make_order(self):
+        self.clean()
+        if self.rowFrame:
+            self.rowFrame.destroy()
+
         row = self.row.get()
-        rowFrame = tk.Frame(self,background="#8CFFEC")
-        rowFrame.pack(side='top',anchor='w')
+        self.rowFrame = tk.Frame(self,background="#8CFFEC")
+        self.rowFrame.pack(side='top',anchor='w')
         for i in range(1, row+1):
             for ind in range(1,i+1):
-                tk.Label(rowFrame, text=ind,background="#8CFFEC").grid(row=i, column=ind)
+                label = tk.Label(self.rowFrame, text=ind,background="#8CFFEC")
+                label.grid(row=i, column=ind)
+                self.labels.append(label)
         for index in range(row):
-            rowFrame.grid_rowconfigure(index,weight=1)
-            rowFrame.grid_columnconfigure(index,weight=1)
+            self.rowFrame.grid_rowconfigure(index,weight=1)
+            self.rowFrame.grid_columnconfigure(index,weight=1)
     def make_order2(self):
+        self.clean()
         row = self.row.get()
         amount = 1
-        rowFrame = tk.Frame(self, background="#8CFFEC")
-        rowFrame.pack(side='top', anchor='e')
+        self.rowFrame = tk.Frame(self, background="#8CFFEC")
+        self.rowFrame.pack(side='top', anchor='e')
         for i in range(1,row + 1):
             col = 0
             for ind in range(amount, amount +i):
-                tk.Label(rowFrame, text=ind, background="#8CFFEC").grid(row=i,column=row-col+1)
+                label = tk.Label(self.rowFrame, text=ind, background="#8CFFEC")
+                label.grid(row=i,column=row-col+1)
+                self.labels.append(label)
                 col += 1
             if i > 1:
                 amount = ind +1
             else:
                 amount = 2
         for index in range(row):
-            rowFrame.grid_rowconfigure(index, weight=1)
-            rowFrame.grid_columnconfigure(index, weight=1)
+            self.rowFrame.grid_rowconfigure(index, weight=1)
+            self.rowFrame.grid_columnconfigure(index, weight=1)
 
 if __name__ == "__main__":
     app = Order()
