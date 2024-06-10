@@ -41,8 +41,23 @@ class Order(tk.Tk):
         for index in range(row):
             rowFrame.grid_rowconfigure(index,weight=1)
             rowFrame.grid_columnconfigure(index,weight=1)
-
-
+    def make_order2(self):
+        row = self.row.get()
+        amount = 1
+        rowFrame = tk.Frame(self, background="#8CFFEC")
+        rowFrame.pack(side='top', anchor='e')
+        for i in range(1,row + 1):
+            col = 0
+            for ind in range(amount, amount +i):
+                tk.Label(rowFrame, text=ind, background="#8CFFEC").grid(row=i,column=row-col+1)
+                col += 1
+            if i > 1:
+                amount = ind +1
+            else:
+                amount = 2
+        for index in range(row):
+            rowFrame.grid_rowconfigure(index, weight=1)
+            rowFrame.grid_columnconfigure(index, weight=1)
 
 if __name__ == "__main__":
     app = Order()
