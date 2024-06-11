@@ -84,7 +84,6 @@ class Order(tk.Tk):
         for i in range(amount_for1,row):
             col = 0
             for index in range(amount, amount+i):
-                # if i < 3:
                 tk.Label(self.rowFrame,background="#8CFFEC",text=2**(index-1)).grid(row=i,column=col)
                 col +=1
             amount = index+1
