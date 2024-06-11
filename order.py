@@ -80,14 +80,12 @@ class Order(tk.Tk):
         self.rowFrame = tk.Frame(self, background="#8CFFEC")
         self.rowFrame.pack(side='top', anchor='w')
         amount = 1
-        amount_for1 = 1
-        for i in range(amount_for1,row):
+        for i in range(1,row):
             col = 0
             for index in range(amount, amount+i):
                 tk.Label(self.rowFrame,background="#8CFFEC",text=2**(index-1)).grid(row=i,column=col)
                 col +=1
             amount = index+1
-            amount_for1 += 1
 
 if __name__ == "__main__":
     app = Order()
