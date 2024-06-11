@@ -33,7 +33,10 @@ class Order(tk.Tk):
         tk.Button(topFrame,text="Run",command=self.make_order,background="#BAECE4").grid(row=0,column=2,padx=3,pady=3,ipadx=3,ipady=3)
         tk.Button(topFrame,text="order",command=self.make_order2,background="#BAECE4").grid(row=0,column=3,padx=3,pady=3,ipadx=3,ipady=3)
         tk.Button(topFrame,text="order2",command=self.make_order3,background="#BAECE4").grid(row=0,column=4,padx=3,pady=3,ipadx=3,ipady=3)
-
+        tk.Button(topFrame,text="order3",command=self.make_order4,background="#BAECE4").grid(row=0,column=5,padx=3,pady=3,ipadx=3,ipady=3)
+        topFrame.grid_rowconfigure(0,weight=1)
+        for i in range(6):
+            topFrame.grid_columnconfigure(i,weight=1)
     def clean(self):
         if self.rowFrame:
             self.rowFrame.destroy()
@@ -89,6 +92,8 @@ class Order(tk.Tk):
         for index in range(row):
             self.rowFrame.grid_columnconfigure(index,weight=1)
             self.rowFrame.grid_rowconfigure(index,weight=1)
+    def make_order4(self):
+        pass
 if __name__ == "__main__":
     app = Order()
     app.mainloop()
