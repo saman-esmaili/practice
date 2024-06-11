@@ -32,6 +32,7 @@ class Order(tk.Tk):
         tk.Entry(topFrame,textvariable=self.row).grid(row=0,column=1,padx=3,pady=3,ipadx=3,ipady=3)
         tk.Button(topFrame,text="Run",command=self.make_order,background="#BAECE4").grid(row=0,column=2,padx=3,pady=3,ipadx=3,ipady=3)
         tk.Button(topFrame,text="order",command=self.make_order2,background="#BAECE4").grid(row=0,column=3,padx=3,pady=3,ipadx=3,ipady=3)
+        tk.Button(topFrame,text="order2",command=self.make_order3,background="#BAECE4").grid(row=0,column=4,padx=3,pady=3,ipadx=3,ipady=3)
 
     def clean(self):
         if self.rowFrame:
@@ -41,9 +42,6 @@ class Order(tk.Tk):
 
     def make_order(self):
         self.clean()
-        if self.rowFrame:
-            self.rowFrame.destroy()
-
         row = self.row.get()
         self.rowFrame = tk.Frame(self,background="#8CFFEC")
         self.rowFrame.pack(side='top',anchor='w')
@@ -75,6 +73,22 @@ class Order(tk.Tk):
         for index in range(row):
             self.rowFrame.grid_rowconfigure(index, weight=1)
             self.rowFrame.grid_columnconfigure(index, weight=1)
+
+    def make_order3(self):
+        self.clean()
+        row = self.row.get()
+        self.rowFrame = tk.Frame(self, background="#8CFFEC")
+        self.rowFrame.pack(side='top', anchor='w')
+        amount = 1
+        amount_for1 = 1
+        for i in range(amount_for1,row):
+            col = 0
+            for index in range(amount, amount+i):
+                # if i < 3:
+                tk.Label(self.rowFrame,background="#8CFFEC",text=2**(index-1)).grid(row=i,column=col)
+                col +=1
+            amount = index+1
+            amount_for1 += 1
 
 if __name__ == "__main__":
     app = Order()
