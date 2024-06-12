@@ -9,7 +9,6 @@ class Order(tk.Tk):
         self.configure(background="#8CFFEC")
         self.center(self)
         self.controller()
-        self.labels = []
         self.rowFrame = None
 
     def center(self, win):
@@ -50,7 +49,6 @@ class Order(tk.Tk):
         if self.rowFrame:
             self.rowFrame.destroy()
             self.rowFrame = None
-            self.labels.clear()
 
     def make_order(self):
         self.clean()
@@ -59,9 +57,7 @@ class Order(tk.Tk):
         self.rowFrame.pack(side='top', anchor='w')
         for i in range(1, row + 1):
             for ind in range(1, i + 1):
-                label = tk.Label(self.rowFrame, text=ind, background="#8CFFEC")
-                label.grid(row=i, column=ind)
-                self.labels.append(label)
+                tk.Label(self.rowFrame, text=ind, background="#8CFFEC").grid(row=i, column=ind)
         for index in range(row):
             self.rowFrame.grid_rowconfigure(index, weight=1)
             self.rowFrame.grid_columnconfigure(index, weight=1)
@@ -75,9 +71,7 @@ class Order(tk.Tk):
         for i in range(1, row + 1):
             col = 0
             for ind in range(amount, amount + i):
-                label = tk.Label(self.rowFrame, text=ind, background="#8CFFEC")
-                label.grid(row=i, column=row - col + 1)
-                self.labels.append(label)
+                tk.Label(self.rowFrame, text=ind, background="#8CFFEC").grid(row=i, column=row - col + 1)
                 col += 1
             if i > 1:
                 amount = ind + 1
