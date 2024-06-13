@@ -65,17 +65,18 @@ class SortApp(tk.Tk):
 
         listBoxFrame2 = tk.Frame(self,background="#66F2F7")
         listBoxFrame2.pack(side=tk.RIGHT, fill=tk.BOTH)
-        self.converted_list = tk.Listbox(listBoxFrame2, height=12,justify=tk.CENTER)
-        self.converted_list.grid(row=0, column=0, padx=3, pady=3, ipadx=3, ipady=3)
+        self.sorted_list = tk.Listbox(listBoxFrame2, height=12,justify=tk.CENTER)
+        self.sorted_list.grid(row=0, column=0, padx=3, pady=3, ipadx=3, ipady=3)
 
-        scrollbar2 = tk.Scrollbar(listBoxFrame2, orient=tk.VERTICAL, command=self.converted_list.yview)
+        scrollbar2 = tk.Scrollbar(listBoxFrame2, orient=tk.VERTICAL, command=self.sorted_list.yview)
         scrollbar2.grid(row=0, column=1, padx=3, pady=3, ipadx=3, ipady=3)
-        self.converted_list.config(yscrollcommand=scrollbar2.set)
+        self.sorted_list.config(yscrollcommand=scrollbar2.set)
         listBoxFrame2.grid_rowconfigure(0,weight=1)
         listBoxFrame2.grid_columnconfigure(0,weight=1)
         listBoxFrame2.grid_columnconfigure(1,weight=1)
 
     def generate(self):
+        self.listbox.delete(0,"end")
         self.list1 = []
         for i in range(self.count.get()):
             randomNumber = random.randint(self.fromEntry.get(),self.toEntry.get())
@@ -86,7 +87,7 @@ class SortApp(tk.Tk):
         saver = 0
         if self.list1 == sorted(self.list1):
             for i in range(len(self.list1)):
-                self.converted_list.insert(i,self.list1[i])
+                self.sorted_list.insert(i,self.list1[i])
         else:
             while self.list1 != sorted(self.list1):
                 even = 0
@@ -111,18 +112,27 @@ class SortApp(tk.Tk):
                                 self.list1[even] = self.list1[odd]
                                 self.list1[odd] = saver
         for i in range(len(self.list1)):
-            self.converted_list.insert(i,self.list1[i])
+            self.sorted_list.insert(i,self.list1[i])
 
     def insertion_sort(self):
-        list2 = [2,3,4,9,8,1]
         saver = 0
-        for i in range(len(list2)):
-            minimum = min(list2[i:len(list2)])
-            index = list2.index(minimum)
-            saver = list2[i]
-            list2[i] = minimum
-            list2[index] = saver
-        print(list2)
+        if self.list1 == sorted(self.list1):
+            for i in range(len(self.list1)):
+                self.sorted_list.insert(i,self.list1[i])
+        else:
+            for i in range(len(self.list1)):
+                minimum = min(self.list1[i:len(self.list1)])
+                index = self.list1.index(minimum)
+                if index < i:
+                    for ind,val in enumerate(self.list1):
+                        if val == minimum:
+                            if ind > i:
+                                index = ind
+                saver = self.list1[i]
+                self.list1[i] = minimum
+                self.list1[index] = saver
+        for i in range(len(self.list1)):
+            self.sorted_list.insert(i,self.list1[i])
 if __name__ == "__main__":
     app = SortApp()
     app.mainloop()
