@@ -93,12 +93,25 @@ class SortApp(tk.Tk):
                 even = 0
                 odd = 1
                 for index in range(len(self.list1)-1):
-                    if index == 0:
-                        if self.list1[even] > self.list1[odd]:
-                            saver = self.list1[even]
-                            self.list1[even] = self.list1[odd]
-                            self.list1[odd] = saver
-                    else:
+                    # if index == 0:
+                    #     if self.list1[even] > self.list1[odd]:
+                    #         saver = self.list1[even]
+                    #         self.list1[even] = self.list1[odd]
+                    #         self.list1[odd] = saver
+                    # else:
+                    #     if index % 2 == 1:
+                    #         even += 2
+                    #         if self.list1[odd] > self.list1[even]:
+                    #             saver = self.list1[even]
+                    #             self.list1[even] = self.list1[odd]
+                    #             self.list1[odd] = saver
+                    #     elif index % 2 == 0:
+                    #         odd += 2
+                    #         if self.list1[even] > self.list1[odd]:
+                    #             saver = self.list1[even]
+                    #             self.list1[even] = self.list1[odd]
+                    #             self.list1[odd] = saver
+                    if index != 0:
                         if index % 2 == 1:
                             even += 2
                             if self.list1[odd] > self.list1[even]:
@@ -111,6 +124,12 @@ class SortApp(tk.Tk):
                                 saver = self.list1[even]
                                 self.list1[even] = self.list1[odd]
                                 self.list1[odd] = saver
+                    else:
+                        if self.list1[even] > self.list1[odd]:
+                            saver = self.list1[even]
+                            self.list1[even] = self.list1[odd]
+                            self.list1[odd] = saver
+
         for i in range(len(self.list1)):
             self.sorted_list.insert(i,self.list1[i])
 
