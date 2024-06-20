@@ -110,7 +110,7 @@ class Order(tk.Tk):
         matrix = np.ones((row,row),dtype=int)
         for rows in range(1,matrix.shape[0]):
             column = 0
-            for col in range(0,rows+1):
+            for col in range(rows+1):
                 if col == 0:
                     matrix[rows,col] = matrix[rows-1,col+(rows-1)] * 2
                 else:
@@ -124,26 +124,42 @@ class Order(tk.Tk):
         for index in range(row):
             self.rowFrame.grid_columnconfigure(index, weight=1)
             self.rowFrame.grid_rowconfigure(index, weight=1)
+    # def make_order4(self):
+    #     self.clean()
+    #     final_list = [[1], [1, 1]]
+    #     list_change = [1, 1]
+    #     saverList = [1, 1]
+    #     row = self.row.get()
+    #     self.rowFrame = tk.Frame(self, background="#8CFFEC")
+    #     self.rowFrame.pack(side='top', anchor='e')
+    #     for index in range(row - 2):
+    #         counter = 0
+    #         for i in range(len(list_change) - 1):
+    #             summation = list_change[i] + list_change[i + 1]
+    #             saverList.insert(i + 1, summation)
+    #             counter += 1
+    #         final_list.append(saverList)
+    #         list_change = saverList
+    #         saverList = [1, 1]
+    #     for index2 in range(row):
+    #         for i2 in range(len(final_list[index2])):
+    #             tk.Label(self.rowFrame, background="#8CFFEC", text=final_list[index2][i2]).grid(row=index2, column=row - i2 + 1)
+    #     for ind in range(row):
+    #         self.rowFrame.grid_columnconfigure(ind, weight=1)
+    #         self.rowFrame.grid_rowconfigure(ind, weight=1)
     def make_order4(self):
         self.clean()
-        final_list = [[1], [1, 1]]
-        list_change = [1, 1]
-        saverList = [1, 1]
         row = self.row.get()
         self.rowFrame = tk.Frame(self, background="#8CFFEC")
         self.rowFrame.pack(side='top', anchor='e')
-        for index in range(row - 2):
-            counter = 0
-            for i in range(len(list_change) - 1):
-                summation = list_change[i] + list_change[i + 1]
-                saverList.insert(i + 1, summation)
-                counter += 1
-            final_list.append(saverList)
-            list_change = saverList
-            saverList = [1, 1]
-        for index2 in range(row):
-            for i2 in range(len(final_list[index2])):
-                tk.Label(self.rowFrame, background="#8CFFEC", text=final_list[index2][i2]).grid(row=index2, column=row - i2 + 1)
+        matrix = np.ones((row,row),dtype=int)
+        for rows in range(2,matrix.shape[0]):
+            for col in range(1,rows):
+                matrix[rows,col] = matrix[rows-1,col-1] + matrix[rows-1,col]
+        for i in range(matrix.shape[0]):
+            for i2 in range(i+1):
+                tk.Label(self.rowFrame, background="#8CFFEC", text=f"{matrix[i,i2]}").grid(row=i,column=row - i2 + 1)
+
         for ind in range(row):
             self.rowFrame.grid_columnconfigure(ind, weight=1)
             self.rowFrame.grid_rowconfigure(ind, weight=1)
