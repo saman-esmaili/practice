@@ -164,6 +164,7 @@ class Order(tk.Tk):
             self.rowFrame.grid_columnconfigure(ind, weight=1)
             self.rowFrame.grid_rowconfigure(ind, weight=1)
 
+
 if __name__ == "__main__":
     app = Order()
     app.mainloop()
