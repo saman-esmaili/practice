@@ -2,7 +2,6 @@ import string
 import tkinter as tk
 import random
 
-
 class PasswordGenerator(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -12,7 +11,6 @@ class PasswordGenerator(tk.Tk):
         self.configure(background="#34495E")
         self.center(self)
         self.controller()
-        self.generate()
     def center(self, win):
         win.update_idletasks()
         width = win.winfo_width()
@@ -49,30 +47,22 @@ class PasswordGenerator(tk.Tk):
                                                                                           pady=15, ipadx=3, ipady=3)
         tk.Button(self,text="copy",command=self.copy, background="#9585A3", fg="#1C0532",activebackground="#34495E").grid(row=4, column=1, padx=3,pady=3, ipadx=3, ipady=3)
     def generate(self):
-        lists = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-                 'u', 'v', 'w', 'x', 'y', 'z'
-            , 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-                 'V', 'W', 'X', 'Y', 'Z'
-            , '0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-        self.pass_list = []
-        word = ''
-        for i in range(0,62):
-            word += lists[i]
-            for i2 in range(0,62):
-                word = word[0:1]
-                word += lists[i2]
-                for i3 in range(0,62):
-                    word += lists[i3]
-                    self.pass_list.append(word)
-                    word = word[0:2]
-            word = ''
-        print(len(self.pass_list))
+        chars = string.ascii_lowercase+string.ascii_uppercase+string.digits
+        self.pass_list3 = [ch+ch1+ch2 for ch in chars for ch1 in chars for ch2 in chars]
+
+        # self.pass_list5 = [ch1+ch2+ch3+ch4+ch5 for ch1 in chars for ch2 in chars for ch3 in chars for ch4 in chars for ch5 in chars]
+        #
+        # self.pass_list14 = [ch1+ch2+ch3+ch4+ch5+ch6+ch7+ch8+ch9+ch10+ch11+ch12+ch13+ch14 for ch1 in chars
+        #                     for ch2 in chars for ch3 in chars for ch4 in chars for ch5 in chars for ch6 in chars
+        #                     for ch7 in chars for ch8 in chars for ch9 in chars for ch10 in chars
+        #                     for ch11 in chars for ch12 in chars for ch13 in chars for ch14 in chars]
 
     def show(self):
+        self.generate()
         chosen = self.numbers.get()
         if chosen == 1:
-            index = random.randint(0,len(self.pass_list))
-            self.result.set(self.pass_list[index])
+            index = random.randint(0,len(self.pass_list3))
+            self.result.set(self.pass_list3[index])
 
     def copy(self):
         value = self.result.get()
