@@ -1,5 +1,5 @@
 import tkinter as tk
-
+import numpy as np
 class Order(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -80,22 +80,50 @@ class Order(tk.Tk):
             self.rowFrame.grid_rowconfigure(index, weight=1)
             self.rowFrame.grid_columnconfigure(index, weight=1)
 
+    # def make_order3(self):
+    #     self.clean()
+    #     row = self.row.get()
+    #     self.rowFrame = tk.Frame(self, background="#8CFFEC")
+    #     self.rowFrame.pack(side='top', anchor='w')
+    #     amount = 1
+    #     saver = 0
+    #     for i in range(1, row + 1):
+    #         col = 0
+    #         for ind in range(amount, amount + i):
+    #             if i == 1:
+    #                 tk.Label(self.rowFrame, background="#8CFFEC", text=1).grid(row=i, column=col)
+    #                 saver = 1
+    #             else:
+    #                 multi = 2 * saver
+    #                 tk.Label(self.rowFrame, background="#8CFFEC", text=multi).grid(row=i, column=col)
+    #                 saver = multi
+    #             col += 1
+    #         amount += 1
+    #     for index in range(row):
+    #         self.rowFrame.grid_columnconfigure(index, weight=1)
+    #         self.rowFrame.grid_rowconfigure(index, weight=1)
     def make_order3(self):
         self.clean()
         row = self.row.get()
         self.rowFrame = tk.Frame(self, background="#8CFFEC")
         self.rowFrame.pack(side='top', anchor='w')
-        amount = 1
-        for i in range(1, row + 1):
-            col = 0
-            for ind in range(amount, amount + i):
-                tk.Label(self.rowFrame, background="#8CFFEC", text=2 ** (ind - 1)).grid(row=i, column=col)
-                col += 1
-            amount = ind + 1
+        matrix = np.ones((row,row),dtype=int)
+        for rows in range(1,matrix.shape[0]):
+            column = 0
+            for col in range(0,rows+1):
+                if col == 0:
+                    matrix[rows,col] = matrix[rows-1,col+(rows-1)] * 2
+                else:
+                    matrix[rows, col] = matrix[rows, col-1] * 2
+                if rows == 1 and col == 0:
+                    tk.Label(self.rowFrame, background="#8CFFEC", text=1).grid(row=rows-1, column=column)
+                    tk.Label(self.rowFrame, background="#8CFFEC", text=f"{matrix[rows, col]}").grid(row=rows, column=column)
+                else:
+                    tk.Label(self.rowFrame, background="#8CFFEC", text=f"{matrix[rows, col]}").grid(row=rows, column=column)
+                column += 1
         for index in range(row):
             self.rowFrame.grid_columnconfigure(index, weight=1)
             self.rowFrame.grid_rowconfigure(index, weight=1)
-
     def make_order4(self):
         self.clean()
         final_list = [[1], [1, 1]]
