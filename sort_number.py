@@ -84,33 +84,16 @@ class SortApp(tk.Tk):
             self.listbox.insert(i,randomNumber)
 
     def bubble_sort(self):
+        counter = 0
         saver = 0
-        if self.list1 == sorted(self.list1):
-            for i in range(len(self.list1)):
-                self.sorted_list.insert(i,self.list1[i])
-        else:
-            while self.list1 != sorted(self.list1):
-                even = 0
-                odd = 1
-                for index in range(len(self.list1)-1):
-                    if index != 0:
-                        if index % 2 == 1:
-                            even += 2
-                            if self.list1[odd] > self.list1[even]:
-                                saver = self.list1[even]
-                                self.list1[even] = self.list1[odd]
-                                self.list1[odd] = saver
-                        elif index % 2 == 0:
-                            odd += 2
-                            if self.list1[even] > self.list1[odd]:
-                                saver = self.list1[even]
-                                self.list1[even] = self.list1[odd]
-                                self.list1[odd] = saver
-                    else:
-                        if self.list1[even] > self.list1[odd]:
-                            saver = self.list1[even]
-                            self.list1[even] = self.list1[odd]
-                            self.list1[odd] = saver
+        for phase in range(len(self.list1)):
+            for index in range(len(self.list1)-1-counter):
+                if self.list1[index] > self.list1[index+1]:
+                    saver = self.list1[index]
+                    self.list1[index] = self.list1[index+1]
+                    self.list1[index+1] = saver
+            counter+=1
+        print(self.list1)
 
         for i in range(len(self.list1)):
             self.sorted_list.insert(i,self.list1[i])
