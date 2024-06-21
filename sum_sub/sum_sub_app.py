@@ -26,13 +26,46 @@ class SumSub(tk.Tk):
         self.enter = tk.StringVar()
         tk.Entry(self,textvariable=self.enter).pack(padx=3,pady=3,ipadx=3,ipady=3)
 
-        tk.Button(self,text="calculate",command=self.calc,background="#DFE7CA",activebackground="#CED7B6").pack(padx=3,pady=3,ipadx=3,ipady=3)
+        self.btn = tk.Button(self,text="calculate",command=self.calc,background="#DFE7CA",activebackground="#CED7B6")
+        self.btn.pack(padx=3,pady=3,ipadx=3,ipady=3)
+        self.bind('<Return>',lambda event: self.btn.invoke())
 
-        self.result = tk.IntVar()
-        tk.Entry(self, textvariable=self.result,justify="center").pack(padx=3, pady=3, ipadx=3, ipady=3)
+        self.result = tk.StringVar()
+        tk.Entry(self, textvariable=self.result,justify="center",state="readonly").pack(padx=3, pady=3, ipadx=3, ipady=3)
 
     def calc(self):
-        pass
+        string = self.enter.get()
+        result = 0
+        characters = ''
+        operators = ''
+        for i,ch in enumerate(string):
+            if ch == '+':
+                if i == 0:
+                    characters += ch
+                elif operators == '-':
+                    result -= float(characters)
+                else:
+                    result += float(characters)
+                operators = '+'
+                characters = ''
+            elif ch == '-':
+                if i == 0:
+                    characters += ch
+                elif operators == '-':
+                    result -= float(characters)
+                else:
+                    result += float(characters)
+                operators = '-'
+                characters = ''
+            else:
+                characters += ch
+                if i == len(string) - 1:
+                    if operators == '-':
+                        result -= float(characters)
+                    else:
+                        result += float(characters)
+
+        self.result.set(str(result))
 
 if __name__ == "__main__":
     app = SumSub()
