@@ -1,5 +1,5 @@
 import tkinter as tk
-
+import string
 class Alexander(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -36,10 +36,33 @@ class Alexander(tk.Tk):
         btn.grid(row=2,column=1,padx=3,pady=3,ipadx=3,ipady=3)
 
         self.result = tk.StringVar()
-        tk.Label(self, textvariable=self.result,background="#FA9835",foreground="#3B230B").grid(row=2, column=0,padx=3,pady=3,ipadx=3,ipady=3)
+        tk.Label(self, textvariable=self.result,background="#FA9835",foreground="#3B230B").grid(row=3, column=1,padx=3,pady=3,ipadx=3,ipady=3)
 
     def show(self):
-        pass
+        codes = self.code.get()
+        codes = codes.lower()
+        result = ''
+        chars = string.ascii_lowercase
+        if self.radioButton.get() == 1:
+            for code in codes:
+                for i in range(len(chars)):
+                    if code == chars[i]:
+                        if i == len(chars) - 1:
+                            result += chars[0]
+                        else:
+                            result += chars[i+1]
+                        break
+        elif self.radioButton.get() == 2:
+            for code1 in codes:
+                for index in range(len(chars)):
+                    if code1 == chars[index]:
+                        if index == 0:
+                            result += chars[len(chars)-1]
+                        else:
+                            result += chars[index-1]
+                        break
+        self.result.set(result)
+
 
 if __name__ == "__main__":
     app = Alexander()
