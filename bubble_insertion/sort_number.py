@@ -1,3 +1,4 @@
+import sys
 import tkinter as tk
 import random
 class SortApp(tk.Tk):
@@ -93,28 +94,22 @@ class SortApp(tk.Tk):
                     self.list1[index] = self.list1[index+1]
                     self.list1[index+1] = saver
             counter+=1
-        print(self.list1)
-
         for i in range(len(self.list1)):
             self.sorted_list.insert(i,self.list1[i])
 
     def insertion_sort(self):
         saver = 0
-        if self.list1 == sorted(self.list1):
-            for i in range(len(self.list1)):
-                self.sorted_list.insert(i,self.list1[i])
-        else:
-            for i in range(len(self.list1)):
-                minimum = min(self.list1[i:len(self.list1)])
-                index = self.list1.index(minimum)
-                if index < i:
-                    for ind,val in enumerate(self.list1):
-                        if val == minimum:
-                            if ind > i:
-                                index = ind
-                saver = self.list1[i]
-                self.list1[i] = minimum
-                self.list1[index] = saver
+        for i in range(len(self.list1)):
+            minimum = min(self.list1[i:len(self.list1)])
+            index = self.list1.index(minimum)
+            if index < i:
+                for ind,val in enumerate(self.list1):
+                    if val == minimum:
+                        if ind > i:
+                            index = ind
+            saver = self.list1[i]
+            self.list1[i] = minimum
+            self.list1[index] = saver
         for i in range(len(self.list1)):
             self.sorted_list.insert(i,self.list1[i])
 if __name__ == "__main__":
