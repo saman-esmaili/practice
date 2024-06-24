@@ -1,9 +1,9 @@
 import tkinter as tk
 
-class SumSub(tk.Tk):
+class Evaluator(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("sum & sub")
+        self.title("evaluator")
         self.geometry("250x180")
         self.configure(background="#CED7B6")
         self.resizable(width=False,height=False)
@@ -38,24 +38,14 @@ class SumSub(tk.Tk):
         result = 0
         characters = ''
         operators = ''
-        for i,ch in enumerate(string):
-            if ch == '+':
-                if i == 0:
-                    characters += ch
-                elif operators == '-':
-                    result -= float(characters)
-                else:
-                    result += float(characters)
-                operators = '+'
-                characters = ''
-            elif ch == '-':
-                if i == 0:
-                    characters += ch
-                elif operators == '-':
-                    result -= float(characters)
-                else:
-                    result += float(characters)
-                operators = '-'
+        for i, ch in enumerate(string):
+            if ch == "+" or ch == "-":
+                if i != 0:
+                    if operators == '-':
+                        result -= float(characters)
+                    else:
+                        result += float(characters)
+                operators = ch
                 characters = ''
             else:
                 characters += ch
@@ -64,9 +54,7 @@ class SumSub(tk.Tk):
                         result -= float(characters)
                     else:
                         result += float(characters)
-
         self.result.set(str(result))
-
 if __name__ == "__main__":
-    app = SumSub()
+    app = Evaluator()
     app.mainloop()
