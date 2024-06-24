@@ -3,10 +3,12 @@ from tkinter import messagebox as mg
 class Validation(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("sum & sub")
+        self.title("validation")
         self.geometry("250x180")
         self.configure(background="#9E9E9D")
         self.resizable(width=False,height=False)
+        self.list = []
+        self.top_index = -1
         self.controller()
         self.center(self)
 
@@ -33,23 +35,32 @@ class Validation(tk.Tk):
         self.result = tk.StringVar()
         tk.Label(self, textvariable=self.result,justify="center",background="#9E9E9D",foreground="#F3F3F3").pack(padx=3, pady=3, ipadx=3, ipady=3)
 
-    def valid(self):
-        chars = self.enter.get()
-        open_parentheses = 0
-        close_parentheses = 0
-        for ch in chars:
-            if ch == "(":
-                open_parentheses += 1
-            elif ch == ")":
-                close_parentheses += 1
-            else:
-                mg.showinfo("error","please, just enter parentheses")
-                break
-        if open_parentheses == close_parentheses:
-            self.result.set("valid")
-        else:
-            self.result.set("invalid")
+    def push(self):
+        for item in self.enter.get():
+            if item == "(":
+                self.list.append(item)
+                self.top_index += 1
+    def pop(self):
+        for item in self.enter.get():
+            if item == ")":
+                if not self.list:
+                    self.top_index = -2
+                else:
+                    self.list.pop()
+                    self.top_index -= 1
 
+    def valid(self):
+        if self.enter.get()[0] == ")":
+            self.result.set("invalid")
+        elif self.enter.get()[len(self.list)-1] == "(":
+            self.result.set("invalid")
+        else:
+            self.push()
+            self.pop()
+            if self.top_index == -1:
+                self.result.set("valid")
+            else:
+                self.result.set("invalid")
 if __name__ == "__main__":
     app = Validation()
     app.mainloop()
