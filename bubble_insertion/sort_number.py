@@ -1,4 +1,3 @@
-import sys
 import tkinter as tk
 import random
 class SortApp(tk.Tk):
@@ -11,7 +10,7 @@ class SortApp(tk.Tk):
         self.controller()
         self.center(self)
 
-    def center(self,win):
+    def center(self, win):
         win.update_idletasks()
         width = win.winfo_width()
         frm_width = win.winfo_rootx() - win.winfo_x()
@@ -25,77 +24,89 @@ class SortApp(tk.Tk):
         win.deiconify()
 
     def controller(self):
-        topFrame = tk.Frame(self,background="#66F2F7")
+        topFrame = tk.Frame(self, background="#66F2F7")
         topFrame.pack(side=tk.TOP)
-        tk.Label(topFrame,text="from:",background="#66F2F7").grid(row=0,column=0,padx=3,pady=3,ipadx=3,ipady=3)
+        tk.Label(topFrame, text="from:", background="#66F2F7").grid(row=0, column=0, padx=3, pady=3, ipadx=3, ipady=3)
         self.fromEntry = tk.IntVar()
-        tk.Entry(topFrame,textvariable=self.fromEntry).grid(row=0,column=1,padx=3,pady=3,ipadx=3,ipady=3)
-        tk.Label(topFrame,text="to:",background="#66F2F7").grid(row=0,column=2,padx=3,pady=3,ipadx=3,ipady=3)
+        tk.Entry(topFrame, textvariable=self.fromEntry).grid(row=0, column=1, padx=3, pady=3, ipadx=3, ipady=3)
+        tk.Label(topFrame, text="to:", background="#66F2F7").grid(row=0, column=2, padx=3, pady=3, ipadx=3, ipady=3)
         self.toEntry = tk.IntVar()
-        tk.Entry(topFrame, textvariable=self.toEntry).grid(row=0,column=3,padx=3,pady=3,ipadx=3,ipady=3)
+        tk.Entry(topFrame, textvariable=self.toEntry).grid(row=0, column=3, padx=3, pady=3, ipadx=3, ipady=3)
 
-        tk.Label(topFrame, text="count:",background="#66F2F7").grid(row=1, column=0, padx=3, pady=3, ipadx=3, ipady=3)
+        tk.Label(topFrame, text="count:", background="#66F2F7").grid(row=1, column=0, padx=3, pady=3, ipadx=3, ipady=3)
         self.count = tk.IntVar()
         tk.Entry(topFrame, textvariable=self.count).grid(row=1, column=1, padx=3, pady=3, ipadx=3, ipady=3)
 
-        tk.Button(topFrame,text="Generate",background="#B9FAFC",command=self.generate).grid(row=1, column=3, padx=3, pady=3, ipadx=3, ipady=3)
+        tk.Button(topFrame, text="Generate", background="#B9FAFC", command=self.generate).grid(row=1, column=3, padx=3,
+                                                                                               pady=3, ipadx=3, ipady=3)
         for i in range(7):
-            topFrame.grid_columnconfigure(i,weight=1)
-        topFrame.grid_rowconfigure(0,weight=1)
-        topFrame.grid_rowconfigure(1,weight=1)
+            topFrame.grid_columnconfigure(i, weight=1)
+        topFrame.grid_rowconfigure(0, weight=1)
+        topFrame.grid_rowconfigure(1, weight=1)
 
-        listBoxFrame = tk.Frame(self,background="#66F2F7")
+        listBoxFrame = tk.Frame(self, background="#66F2F7")
         listBoxFrame.pack(side=tk.LEFT, fill=tk.BOTH)
-        self.listbox = tk.Listbox(listBoxFrame,height=12,justify=tk.CENTER)
+        self.listbox = tk.Listbox(listBoxFrame, height=12, justify=tk.CENTER)
         self.listbox.grid(row=0, column=1, padx=3, pady=3, ipadx=3, ipady=3)
 
-        scrollbar = tk.Scrollbar(listBoxFrame,orient=tk.VERTICAL, command=self.listbox.yview)
+        scrollbar = tk.Scrollbar(listBoxFrame, orient=tk.VERTICAL, command=self.listbox.yview)
         scrollbar.grid(row=0, column=0, padx=3, pady=3, ipadx=3, ipady=3)
         self.listbox.config(yscrollcommand=scrollbar.set)
-        listBoxFrame.grid_columnconfigure(0,weight=1)
-        listBoxFrame.grid_columnconfigure(1,weight=1)
-        listBoxFrame.grid_rowconfigure(0,weight=1)
+        listBoxFrame.grid_columnconfigure(0, weight=1)
+        listBoxFrame.grid_columnconfigure(1, weight=1)
+        listBoxFrame.grid_rowconfigure(0, weight=1)
 
-        buttonFame = tk.Frame(self,background="#66F2F7")
+        buttonFame = tk.Frame(self, background="#66F2F7")
         buttonFame.pack(side=tk.LEFT, fill=tk.X)
-        tk.Button(buttonFame,text="Bubble",background="#B9FAFC",command=self.bubble_sort).grid(row=0,column=0, padx=3, pady=3, ipadx=3, ipady=3,sticky='nesw')
-        tk.Button(buttonFame,text="insertion",background="#B9FAFC",command=self.insertion_sort).grid(row=1,column=0, padx=3, pady=3, ipadx=3, ipady=3,sticky='nesw')
-        buttonFame.grid_rowconfigure(0,weight=1)
-        buttonFame.grid_rowconfigure(1,weight=1)
-        buttonFame.grid_columnconfigure(0,weight=1)
+        tk.Button(buttonFame, text="Bubble", background="#B9FAFC", command=self.bubble_sort).grid(row=0, column=0,
+                                                                                                  padx=3, pady=3,
+                                                                                                  ipadx=3, ipady=3,
+                                                                                                  sticky='nesw')
+        tk.Button(buttonFame, text="insertion", background="#B9FAFC", command=self.insertion_sort).grid(row=1, column=0,
+                                                                                                        padx=3, pady=3,
+                                                                                                        ipadx=3,
+                                                                                                        ipady=3,
+                                                                                                        sticky='nesw')
+        buttonFame.grid_rowconfigure(0, weight=1)
+        buttonFame.grid_rowconfigure(1, weight=1)
+        buttonFame.grid_columnconfigure(0, weight=1)
 
-        listBoxFrame2 = tk.Frame(self,background="#66F2F7")
+        listBoxFrame2 = tk.Frame(self, background="#66F2F7")
         listBoxFrame2.pack(side=tk.RIGHT, fill=tk.BOTH)
-        self.sorted_list = tk.Listbox(listBoxFrame2, height=12,justify=tk.CENTER)
+        self.sorted_list = tk.Listbox(listBoxFrame2, height=12, justify=tk.CENTER)
         self.sorted_list.grid(row=0, column=0, padx=3, pady=3, ipadx=3, ipady=3)
 
         scrollbar2 = tk.Scrollbar(listBoxFrame2, orient=tk.VERTICAL, command=self.sorted_list.yview)
         scrollbar2.grid(row=0, column=1, padx=3, pady=3, ipadx=3, ipady=3)
         self.sorted_list.config(yscrollcommand=scrollbar2.set)
-        listBoxFrame2.grid_rowconfigure(0,weight=1)
-        listBoxFrame2.grid_columnconfigure(0,weight=1)
-        listBoxFrame2.grid_columnconfigure(1,weight=1)
+        listBoxFrame2.grid_rowconfigure(0, weight=1)
+        listBoxFrame2.grid_columnconfigure(0, weight=1)
+        listBoxFrame2.grid_columnconfigure(1, weight=1)
 
     def generate(self):
-        self.listbox.delete(0,"end")
+        self.listbox.delete(0, "end")
         self.list1 = []
         for i in range(self.count.get()):
-            randomNumber = random.randint(self.fromEntry.get(),self.toEntry.get())
+            randomNumber = random.randint(self.fromEntry.get(), self.toEntry.get())
             self.list1.append(randomNumber)
-            self.listbox.insert(i,randomNumber)
+            self.listbox.insert(i, randomNumber)
 
     def bubble_sort(self):
         counter = 0
         saver = 0
+        is_true = True
         for phase in range(len(self.list1)):
+            if phase == 1 and is_true == True:
+                break
             for index in range(len(self.list1)-1-counter):
                 if self.list1[index] > self.list1[index+1]:
+                    is_true = False
                     saver = self.list1[index]
                     self.list1[index] = self.list1[index+1]
                     self.list1[index+1] = saver
-            counter+=1
+            counter += 1
         for i in range(len(self.list1)):
-            self.sorted_list.insert(i,self.list1[i])
+            self.sorted_list.insert(i, self.list1[i])
 
     def insertion_sort(self):
         saver = 0
@@ -103,7 +114,7 @@ class SortApp(tk.Tk):
             minimum = min(self.list1[i:len(self.list1)])
             index = self.list1.index(minimum)
             if index < i:
-                for ind,val in enumerate(self.list1):
+                for ind, val in enumerate(self.list1):
                     if val == minimum:
                         if ind > i:
                             index = ind
@@ -111,7 +122,9 @@ class SortApp(tk.Tk):
             self.list1[i] = minimum
             self.list1[index] = saver
         for i in range(len(self.list1)):
-            self.sorted_list.insert(i,self.list1[i])
+            self.sorted_list.insert(i, self.list1[i])
+
+
 if __name__ == "__main__":
     app = SortApp()
     app.mainloop()
