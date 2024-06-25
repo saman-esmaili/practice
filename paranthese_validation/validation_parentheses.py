@@ -43,16 +43,14 @@ class Validation(tk.Tk):
     def pop(self):
         for item in self.enter.get():
             if item == ")":
-                if not self.list:
-                    self.top_index = -2
-                else:
+                if self.top_index >= 0:
                     self.list.pop()
                     self.top_index -= 1
+                else:
+                    self.top_index = -2
 
     def valid(self):
-        if self.enter.get()[0] == ")":
-            self.result.set("invalid")
-        elif self.enter.get()[len(self.list)-1] == "(":
+        if self.enter.get()[0] == ")" or self.enter.get()[len(self.list)-1] == "(":
             self.result.set("invalid")
         else:
             self.push()
