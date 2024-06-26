@@ -56,10 +56,7 @@ class Alexander(tk.Tk):
             for code1 in codes:
                 for index in range(len(chars)):
                     if code1 == chars[index]:
-                        if index == 0:
-                            result += chars[len(chars)-1]
-                        else:
-                            result += chars[index-1]
+                        result += chars[index-1]
                         break
         self.result.set(result)
 
