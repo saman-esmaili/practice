@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import messagebox as mg
 class Validation(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -59,6 +58,8 @@ class Validation(tk.Tk):
                 self.result.set("valid")
             else:
                 self.result.set("invalid")
+
+
 if __name__ == "__main__":
     app = Validation()
     app.mainloop()
