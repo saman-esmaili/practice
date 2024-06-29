@@ -64,11 +64,10 @@ class Validation(tk.Tk):
                     self.operators.remove()
                 else:
                     self.operators.top_index = -2
+        if self.operators.is_empty() and self.parentheses.is_empty():
+            self.result.set("valid")
         else:
-            if self.operators.is_empty() and self.parentheses.is_empty():
-                self.result.set("valid")
-            else:
-                self.result.set("invalid")
+            self.result.set("invalid")
 
 
 if __name__ == "__main__":
