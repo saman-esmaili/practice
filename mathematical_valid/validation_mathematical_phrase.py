@@ -69,6 +69,7 @@ class Validation(tk.Tk):
             else:
                 self.result.set("invalid")
 
+
 if __name__ == "__main__":
     app = Validation()
     app.mainloop()
