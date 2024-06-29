@@ -1,16 +1,16 @@
 import tkinter as tk
 
+from mathematical_valid.stack import Stack
+
+
 class Validation(tk.Tk):
+
     def __init__(self):
         super().__init__()
         self.geometry("200x200")
         self.resizable(width=False,height=False)
         self.configure(background="#57A49A")
         self.title("validation")
-        self.parentheses = []
-        self.operators = []
-        self.parentheses_index=-1
-        self.operators_index=-1
         self.controller()
         self.center(self)
 
@@ -37,51 +37,38 @@ class Validation(tk.Tk):
         self.result = tk.StringVar()
         tk.Label(frame,textvariable=self.result,background="#57A49A").grid(row=2,column=0,padx=3,pady=3,ipadx=3,ipady=3)
 
-    def push(self):
+    def valid(self):
+        self.parentheses = Stack()
+        self.operators = Stack()
         phrase = self.phrase.get()
         if phrase[0] != '-':
             self.final_phrase = f"+{phrase}"
         else:
             self.final_phrase = phrase
+        if self.final_phrase[0] == ")" or self.final_phrase[len(self.final_phrase)-1] == "(":
+            self.result.set("invalid")
         for phs in self.final_phrase:
             if phs == "(":
-                self.parentheses.append(phs)
-                self.parentheses_index += 1
+                self.parentheses.push(phs)
             elif phs == "+" or phs == "-":
-                self.operators.append(phs)
-                self.operators_index += 1
-
-    def pop(self):
-        index = 0
-        for phs in self.final_phrase:
-            if phs == ")":
-                if self.operators_index != -1:
-                    self.operators_index = -2
-                else:
-                    if self.parentheses_index >= 0:
-                        self.parentheses.pop()
-                        self.parentheses_index -= 1
+                self.operators.push(phs)
+            elif phs == ")":
+                if self.operators.is_empty():
+                    if self.parentheses.has_item():
+                        self.parentheses.remove()
                     else:
-                        self.parentheses_index = -2
-            elif phs != "(" and phs != "+" and phs != "-":
-                if self.operators_index >= 0:
-                    self.operators.pop()
-                    self.operators_index -= 1
-
-    def valid(self):
-        phrase = self.phrase.get()
-        if phrase[0] == ")" or phrase[len(phrase)-1] == "(":
-            self.result.set("invalid")
+                        self.parentheses.top_index = -2
+            else:
+                if self.operators.has_item():
+                    self.operators.remove()
+                else:
+                    self.operators.top_index = -2
         else:
-            self.push()
-            self.pop()
-            if self.parentheses_index == -1 and self.operators_index == -1:
+            if self.operators.is_empty() and self.parentheses.is_empty():
                 self.result.set("valid")
             else:
                 self.result.set("invalid")
 
-
 if __name__ == "__main__":
     app = Validation()
     app.mainloop()
-
