@@ -41,12 +41,13 @@ class Validation(tk.Tk):
         self.parentheses = Stack()
         self.operators = Stack()
         phrase = self.phrase.get()
-        if phrase[0] != '-':
+        if phrase[0] != '-' and phrase[0] != "+":
             self.final_phrase = f"+{phrase}"
         else:
             self.final_phrase = phrase
-        if self.final_phrase[0] == ")" or self.final_phrase[len(self.final_phrase)-1] == "(":
+        if self.final_phrase[1] == ")" or self.final_phrase[len(self.final_phrase)-1] == "(":
             self.result.set("invalid")
+            return
         for phs in self.final_phrase:
             if phs == "(":
                 self.parentheses.push(phs)
