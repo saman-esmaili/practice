@@ -1,4 +1,8 @@
 import tkinter as tk
+
+from paranthese_validation.stack import Stack
+
+
 class Validation(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -6,7 +10,6 @@ class Validation(tk.Tk):
         self.geometry("250x180")
         self.configure(background="#9E9E9D")
         self.resizable(width=False,height=False)
-        self.list = []
         self.top_index = -1
         self.controller()
         self.center(self)
@@ -34,31 +37,25 @@ class Validation(tk.Tk):
         self.result = tk.StringVar()
         tk.Label(self, textvariable=self.result,justify="center",background="#9E9E9D",foreground="#F3F3F3").pack(padx=3, pady=3, ipadx=3, ipady=3)
 
-    def push(self):
-        for item in self.enter.get():
-            if item == "(":
-                self.list.append(item)
-                self.top_index += 1
-    def pop(self):
-        for item in self.enter.get():
-            if item == ")":
-                if self.top_index >= 0:
-                    self.list.pop()
-                    self.top_index -= 1
-                else:
-                    self.top_index = -2
-
     def valid(self):
-        if self.enter.get()[0] == ")" or self.enter.get()[len(self.list)-1] == "(":
+        self.list = Stack()
+        phrase = self.enter.get()
+        if phrase[0] == ")" or phrase[len(phrase)-1] == "(":
             self.result.set("invalid")
         else:
-            self.push()
-            self.pop()
-            if self.top_index == -1:
+            for item in phrase:
+                if item == "(":
+                    self.list.push(item)
+                elif item == ")":
+                    if self.list.has_item():
+                        self.list.remove()
+                    else:
+                        self.list.top_index = -2
+
+            if self.list.is_empty():
                 self.result.set("valid")
             else:
                 self.result.set("invalid")
-
 
 if __name__ == "__main__":
     app = Validation()
