@@ -1,7 +1,7 @@
 class Binary():
     def __init__(self,number,base):
         self.number = number
-        self.base =base
+        self.base = base
 
     def convert_binary(self):
         self.binaries = []
@@ -13,6 +13,6 @@ class Binary():
         return self.binaries[::-1]
 
 
-binary = Binary(20,4)
+binary = Binary(160,2)
 print(binary.convert_binary())
 
