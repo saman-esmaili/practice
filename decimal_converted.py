@@ -4,15 +4,14 @@ class Binary():
         self.base = base
 
     def convert_binary(self):
-        self.binaries = []
-        while self.number // self.base != 0:
-            result = self.number % self.base
-            self.binaries.append(result)
+        self.binaries = ''
+        while self.number > 0:
+            reminder = self.number % self.base
             self.number = self.number // self.base
-        self.binaries.append(self.number)
+            self.binaries += str(reminder)
         return self.binaries[::-1]
 
 
-binary = Binary(160,2)
+binary = Binary(113,2)
 print(binary.convert_binary())
 
