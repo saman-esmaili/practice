@@ -9,16 +9,8 @@ class Relation():
         self.lables = generator.generate()[1]
         self.matrix = generator.generate()[0]
     def find_way(self):
-        list = []
-        for key,val in self.lables.items():
-            if val == self.node1:
-                list.append([key,0])
-            elif val == self.node2:
-                list.append([0,key])
-            if len(list) == 2:
-                break
-        row = list[0][0] + list[1][0]
-        col = list[0][1] + list[1][1]
+        row = self.lables[self.node1]
+        col = self.lables[self.node2]
         if self.matrix[row,col] == 1:
             return True
         else:
