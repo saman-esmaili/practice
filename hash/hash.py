@@ -37,3 +37,7 @@ class Hash:
 
 hash = Hash()
 hash.add_empty()
+
+
+
+
