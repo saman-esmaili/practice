@@ -14,13 +14,11 @@ class Hash:
     def get_hash(self, key):
         if self.index <= self.size:
             result = ""
-            total = 0
             if type(key) == int:
                 self.address = key % 97
             elif type(key) == str:
                 for ch in key:
                     result += str(ord(ch))
-                    total += ord(ch)
                 reminder = str(int(result) % 100000007)
                 self.address = reminder[len(reminder) - 2:]
                 self.address = int(self.address)
@@ -39,7 +37,3 @@ class Hash:
 
 hash = Hash()
 hash.add_empty()
-
-hash.get_hash("samanesmaili")
-
-print(ord("i"))
