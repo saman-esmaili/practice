@@ -12,8 +12,10 @@ class Counter():
     def count(self):
         counter = 0
         for i in range(len(self.list)):
-            for i2 in range(len(self.list[i].split())):
-                if self.word == self.list[i].split()[i2]:
+            split_list = self.list[i].split()
+            length = len(split_list)
+            for i2 in range(length):
+                if self.word in split_list[i2]:
                     counter += 1
         return counter
 
