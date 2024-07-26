@@ -15,6 +15,7 @@ class MazeStructure():
         for i,j in path:
             maze[i,j] = 0
         return maze
-
+    def load(self):
+        return np.load('maze.csv.npy')
 
 maze = MazeStructure()
