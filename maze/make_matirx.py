@@ -66,10 +66,22 @@ class MakeMaze:
             return True
         return False
 
-    def repeated_point(self, point):
-        if self.maze[point] == 0:
-            return True
-        return False
+    def count_path(self,point):
+        left = (point[0], point[1] - 1)
+        right = (point[0], point[1] + 1)
+        top = (point[0] - 1, point[1])
+        bottom = (point[0] + 1, point[1])
+        counter = 0
+        if self.maze[left] == 0:
+            counter +=1
+        if self.maze[right] == 0:
+            counter +=1
+        if self.maze[top] == 0:
+            counter +=1
+        if self.maze[bottom] == 0:
+            counter +=1
+        return counter
+
 
     def make_random_maze(self):
         self.maze[self.start_point[0], self.start_point[1]] = 0
@@ -77,6 +89,7 @@ class MakeMaze:
         self.queue.append(self.start_point)
         counter = 0
         past_point = (0, 0)
+        point = (0, 0)
         while self.queue:
             point = self.queue.popleft()
             if self.is_valid_point(point) and not self.is_frontier(point) and not self.is_block(point):
@@ -89,6 +102,9 @@ class MakeMaze:
                 self.next_points = self.next_move(point)
                 if saver_point in self.next_points:
                     self.next_points.remove(saver_point)
+            for next_point in self.next_points:
+                if self.count_path(next_point) > 1:
+                    self.next_points.remove(next_point)
             if self.next_points:
                 walk_point_number = random.randint(0, len(self.next_points) - 1)
                 if walk_point_number == 0:
@@ -98,9 +114,8 @@ class MakeMaze:
                 self.add_to_queue(selected_points)
             counter += 1
             past_point = point
-            if point == self.end_point:
-                return True
-
+        if self.maze[self.end_point[0],self.end_point[1]-1] != 0:
+            self.maze[self.end_point[0],self.end_point[1]-1] = 0
 
     def draw_maze(self):
         plt.figure(figsize=(10, 10))
@@ -111,5 +126,6 @@ class MakeMaze:
 
 
 maze = MakeMaze(20, (0, 1), (18, 19))
+# maze = MakeMaze(10, (0, 1), (8, 9))
 maze.make_random_maze()
 maze.draw_maze()
